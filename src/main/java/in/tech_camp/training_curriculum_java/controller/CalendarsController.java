@@ -44,7 +44,7 @@ public class CalendarsController {
       newPlan.setPlan(planForm.getPlan());
       planRepository.insert(newPlan);
     }
-    return "calendars/index";
+    return "redirect:/";
   }
 
   private List<Map<String, Object>> get_week() {
