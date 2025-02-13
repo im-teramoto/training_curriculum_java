@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import in.tech_camp.training_curriculum_java.repository.PlanRepository;
-import in.tech_camp.training_curriculum_java.form.PlanForm;
 import in.tech_camp.training_curriculum_java.entity.PlanEntity;
-
+import in.tech_camp.training_curriculum_java.form.PlanForm;
+import in.tech_camp.training_curriculum_java.repository.PlanRepository;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -30,7 +29,7 @@ public class CalendarsController {
   @GetMapping("/")
   public String index(Model model) {
     model.addAttribute("planForm", new PlanForm());
-    List<Map<String, Object>> weekDays = get_week();
+    List<Map<String, Object>> weekDays = getWeek();
     model.addAttribute("weekDays", weekDays);
     return "calendars/index";
   }
@@ -47,7 +46,7 @@ public class CalendarsController {
     return "redirect:/";
   }
 
-  private List<Map<String, Object>> get_week() {
+  private List<Map<String, Object>> getWeek() {
     List<Map<String, Object>> weekDays = new ArrayList<>();
 
     LocalDate todaysDate = LocalDate.now();
@@ -56,7 +55,8 @@ public class CalendarsController {
     String[] wdays = {"(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"};
 
     for (int x = 0; x < 7; x++) {
-      Map<String, Object> dayMap = new HashMap<String, Object>();
+
+      Map<String, Object> dayMap = new HashMap<>();
       LocalDate currentDate = todaysDate.plusDays(x);
 
       List<String> todayPlans = new ArrayList<>();
@@ -78,7 +78,7 @@ public class CalendarsController {
 
       dayMap.put("plans", todayPlans);
 
-      weekDays.add(dayMap);
+     weekDays.add(dayMap);
     }
 
     return weekDays;
